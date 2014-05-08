@@ -4,6 +4,7 @@
 
 	<element name="Customer" type="tns:customerType" />
 	<element name="Item" type="tns:itemType" />
+	<element name="Type" type="string" />
 	<element name="ItemSku" type="tns:skuType" />
 	<element name="TransactedSku" type="tns:transactedSkuType" />
 	<element name="ItemId" type="string" />
@@ -39,7 +40,8 @@
 									<enumeration value="Email" />
 									<enumeration value="Sms" />
 									<enumeration value="Web" />
-									<enumeration value="Mobile Push" />
+									<enumeration value="Apple Push" />
+									<enumeration value="Android Push" />
 								</restriction>
 							</simpleType>
 						</element>
@@ -56,7 +58,33 @@
 			<element name="type" type="string" />
 			<element name="name" type="string" />
 			<element name="summary" type="string" />
-			<element name="imageUrl" type="string" />
+			<element name="brand" type="string" />
+			<element name="images" minOccurs="0">
+				<complexType>
+					<sequence>
+						<element name="image" maxOccurs="unbounded">
+							<complexType>
+								<simpleContent>
+									<extension base="string">
+										<attribute name="type">
+											<simpleType>
+												<restriction base="string">
+													<enumeration value="TinyImage" />
+													<enumeration value="SwatchImage" />
+													<enumeration value="ThumbImage" />
+													<enumeration value="SmallImage" />
+													<enumeration value="MediumImage" />
+													<enumeration value="LargeImage" />
+												</restriction>
+											</simpleType>
+										</attribute>
+									</extension>
+								</simpleContent>
+							</complexType>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
 		</sequence>
 	</group>
 

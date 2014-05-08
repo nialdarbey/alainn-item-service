@@ -29,6 +29,9 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
     <context:property-placeholder location="config.prod.properties" />
     
     <db:mysql-config name="MySQL_Configuration" host="mule-demo-repository.cdumb7bgzajt.us-east-1.rds.amazonaws.com" port="3306" user="mule" password="Mule1379" database="alainn" doc:name="MySQL Configuration"/>
+    <data-mapper:config name="map_to_xml_1" transformationGraphPath="map_to_xml_1.grf" doc:name="map_to_xml_1"/>
+    <data-mapper:config name="map_to_xml" transformationGraphPath="map_to_xml.grf" doc:name="map_to_xml"/>
+    <data-mapper:config name="XML_To_Map" transformationGraphPath="xml_to_map.grf" doc:name="XML_To_Map"/>
     
     <flow name="ItemserviceFlow1" doc:name="ItemserviceFlow1">
         <https:inbound-endpoint exchange-pattern="request-response" host="localhost" port="${https.port}" path="item-service" doc:name=":8081/item-service" connector-ref="httpsConnector"/>
@@ -37,27 +40,99 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
                 <cxf:schemaLocation>service/SOA-Message-1.0.xsd</cxf:schemaLocation>
             </cxf:schemaLocations>
         </cxf:proxy-service>
+        <mulexml:dom-to-xml-transformer doc:name="DOM to XML"/>
         <set-variable variableName="opName" value="#[xpath('fn:local-name(/*)')]" doc:name="opName"/>
         <choice doc:name="Choice">
+            <when expression="#[opName == 'getItems']">
+            	<set-variable variableName="imageMultiple" value="#[xpath('/mes:getItems/mes:ImageType/text()').text.split(',').length]" doc:name="imageMultiple"/>
+            	<set-variable variableName="limit" value="#[Integer.valueOf(xpath('/mes:getItems/mes:PageInfo/pageSize/text()').text) * imageMultiple]" doc:name="pageSize" />
+                <db:select config-ref="MySQL_Configuration" doc:name="select items" target="flowVars.items">
+                    <db:dynamic-query><![CDATA[select i.item_id, i.item_name, i.item_summary, i.item_description, i.item_brand, 	
+						it.item_type_name, im.url, imt.image_type_name 
+						from item i, item_type it, image im, image_type imt
+						where i.item_type_id = it.id
+						and im.item_id = i.item_id
+						and im.image_type_id = imt.id
+					    and it.item_type_name like '#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/type/text()').text; n == '*' ? '%' : n + '%']' 
+					    and i.item_name like '#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/name/text()').text; n == '*' ? '%' : n + '%']'
+					    and i.item_brand like '#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/brand/text()').text; n == '*' ? '%' : n + '%']'
+					    and imt.image_type_name in ('#[xpath('/mes:getItems/mes:ImageType/text()').text.replaceAll(",", "','")]') 
+					    order by item_id
+					    limit #[Integer.valueOf(xpath('/mes:getItems/mes:PageInfo/pageIndex/text()').text)],#[limit] ]]></db:dynamic-query>
+                </db:select>
+                <expression-transformer doc:name="to []" expression="
+                	np = [ 'pageInfo' : [ 'index' : Integer.valueOf(xpath('/mes:getItems/mes:PageInfo/pageIndex/text()').text), 'size' : (items.size() / imageMultiple) ], 'items' : [] ];
+                	index = ['x' : 'x'];
+                	for (record :  flowVars.items) {
+                		if (index.containsKey(record.item_id)) {
+                			image = [ 'url' : record.url, 'image_type_name' : record.image_type_name ]; 
+                			index[record.item_id].images.add(image);
+                		}
+                		else {
+                			item = [ 'item_id' : record.item_id, 'item_name': record.item_name, 'item_summary' : record.item_summary, 'item_description': record.item_description, 
+                				'item_brand' : record.item_brand, 'item_type_name' : record.item_type_name, 'images' : [ ['url' : record.url, 'image_type_name' : record.image_type_name] ] ];
+                			index.put(record.item_id, item);
+                		}
+                	};
+                	index.remove('x');
+                	np.items.addAll(index.values());
+                	np
+                ">
+                </expression-transformer>
+                <data-mapper:transform config-ref="map_to_xml" doc:name="Map To XML"/>
+                
+            </when>
             <when expression="#[opName == 'getItem']">
                 <db:select config-ref="MySQL_Configuration" doc:name="select item">
-                    <db:parameterized-query><![CDATA[select i.description, si.id, si.name, si.summary, si.price, si.stock_quantity, si.image_url from item i, sku_item si where i.id = #[xpath:/mes:getItem/mod:ItemId] and si.item_id = i.id]]></db:parameterized-query>
+                    <db:dynamic-query><![CDATA[select i.item_id, it.item_type_name, i.item_name, i.item_brand, i.item_description, 
+						si.sku_id, si.sku_name, si.sku_summary, si.price, si.stock_quantity, 
+						im.url, imt.image_type_name 
+						from item i, item_type it, sku_item si, image im, image_type imt 
+						where i.item_type_id = it.id
+						and si.item_id = i.item_id
+						and si.sku_id = im.item_sku_id
+						and im.image_type_id = imt.id
+						and i.item_id = '#[xpath('/mes:getItem/mod:ItemId/text()').text]' 
+						and si.item_id = i.item_id
+						and imt.image_type_name in ('#[xpath('/mes:getItem/mes:ImageType/text()').text.replaceAll(",", "','")]')
+						]]></db:dynamic-query>
                 </db:select>
-                <data-mapper:transform doc:name="DataMapper"/>
+                <expression-transformer doc:name="to []" expression="
+                	first = payload[0];
+                	np = [ 'item' : [ 'item_id' : first.item_id, 'item_name' : first.item_name, 'item_summary' : first.item_summary, 'item_description' : first.item_description, 'item_brand' : first.item_brand, 'item_type_name' : first.item_type_name ], 'item_skus' : [] ];
+                	index = ['x' : 'x'];
+                	for (record :  payload) {
+                		if (index.containsKey(record.sku_id)) {
+                			image = [ 'url' : record.url, 'image_type_name' : record.image_type_name ]; 
+                			index[record.sku_id].images.add(image);
+                		}
+                		else {
+                			sku = [ 'sku_id' : record.sku_id, 'sku_name': record.sku_name, 'sku_summary' : record.sku_summary, 
+                				'price' : record.price, 'stock_quantity' : record.stock_quantity,
+                				'images' : [ ['url' : record.url, 'image_type_name' : record.image_type_name] ] ];
+                			index.put(record.sku_id, sku);
+                   		}
+                	};
+                	index.remove('x');
+                	np.item_skus.addAll(index.values());
+                	np
+                ">
+                </expression-transformer>
+                
+                <data-mapper:transform doc:name="Map To XML" config-ref="map_to_xml_1"/>
                 
             </when>
-            <when expression="#[opName == 'getItems']">
-                <db:select config-ref="MySQL_Configuration" doc:name="select items">
-                    <db:dynamic-query><![CDATA[ select * from item i, item_type it where i.type_id = it.id and it.name like '#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/type/text()').text; n == '*' ? '&' : '&' + n]' and i.name like ''#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/name/text()').text; n == '*' ? '&' : '&' + n]'' limit #[Integer.valueOf(xpath('/mes:getItems/mes:PageInfo/pageIndex/text()').text)],#[Integer.valueOf(xpath('/mes:getItems/mes:PageInfo/pageSize/text()').text)] ]]></db:dynamic-query>
+            <when expression="#[opName == 'getTypes']">
+                <db:select config-ref="MySQL_Configuration" doc:name="select types">
+                    <db:parameterized-query><![CDATA[select * from item_type]]></db:parameterized-query>
                 </db:select>
-                <data-mapper:transform doc:name="DataMapper"/>
-                
             </when>
-            <when expression="#[opName == 'modifySkuStockCount']">
-                <db:update config-ref="MySQL_Configuration" doc:name="modify sku stock count">
-                    <db:parameterized-query><![CDATA[ update wish set active = false where customer_id = #[xpath:/mes:addWish/mod:CustomerId] and sku_item_id = #[xpath:/mes:addWish/mod:Sku]  ]]></db:parameterized-query>
+            <when expression="#[opName == 'modifySKUStockCount']">
+                <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
+                <db:update config-ref="MySQL_Configuration" bulkMode="true" doc:name="Bulk modify sku stock count">
+                    <db:parameterized-query><![CDATA[update sku_item set stock_quantity = stock_quantity - #[payload.quantity] where sku_id = #[payload.sku]]]></db:parameterized-query>
                 </db:update>
-                <data-mapper:transform doc:name="DataMapper"/>
+                <parse-template location="modifySkuStockCountResponse.xml" doc:name="modifySkuStockCountResponse.xml"/>
                 
             </when>
             <otherwise>

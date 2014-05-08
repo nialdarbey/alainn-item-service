@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph author="nialdarbey" created="Fri May 02 16:14:25 ART 2014" description="Map To XML" guiVersion="3.4.3.P" id="1399063159755" licenseCode="Unlicensed" licenseType="Unknown" modified="Fri May 02 16:14:25 ART 2014" modifiedBy="nialdarbey" name="Map_To_XML" preview-file="${Project_Home}/src/test/resources/items-structured.groovy" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse" _dataStructure="OBJECT" _id="__id" _type="Output" id="2a07021c-5241-470a-bb78-02d31d994835">
+<Record fieldDelimiter="," name="getItemsResponse" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns0:PageInfo/pageIndex" containerType="SINGLE" label="pageIndex" name="pageIndex" type="integer"/>
+<Field __index="1" __sourcePath="{http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns0:PageInfo/pageSize" containerType="SINGLE" label="pageSize" name="pageSize" type="integer"/>
+</Record>
+</Metadata>
+<Metadata __index="7" __referenceCounter="1" __sourcePath="{http://www.alainn.com/SOA/model/1.0=ns1,http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns1:Item/images/image" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="a23220f6-1dd5-4e45-bacc-a45bc5d8ce6b" _parent_id="__parent_id" _type="Output" id="1cedaad7-4ae2-451e-9416-3d3437b9d135">
+<Record fieldDelimiter="," name="image" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="7" __sourcePath="{http://www.alainn.com/SOA/model/1.0=ns1,http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns1:Item/images/image/@type" containerType="SINGLE" label="type" name="type" type="string"/>
+<Field __index="8" __sourcePath="{http://www.alainn.com/SOA/model/1.0=ns1,http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns1:Item/images/image/@text()" containerType="SINGLE" label="text()" name="text" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="8" __referenceCounter="1" __sourcePath="{}/mapMetadata/items/images" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="72048ce6-5eeb-4fbe-8b5c-90e117b19145" _parent_id="__parent_id" _type="Input" id="2f291730-c917-45bc-9bf6-0c84d342e1ae">
+<Record fieldDelimiter="," name="images" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="8" __sourcePath="{}/mapMetadata/items/images/url" containerType="SINGLE" label="url" name="url" type="string"/>
+<Field __index="9" __sourcePath="{}/mapMetadata/items/images/image_x005ftype_x005fname" containerType="SINGLE" label="image_type_name" name="image_type_name" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="2" __referenceCounter="1" __schemaType="{http://www.alainn.com/SOA/model/1.0}itemType" __sourcePath="{http://www.alainn.com/SOA/model/1.0=ns1,http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns1:Item" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="2a07021c-5241-470a-bb78-02d31d994835" _parent_id="__parent_id" _type="Output" id="a23220f6-1dd5-4e45-bacc-a45bc5d8ce6b">
+<Record fieldDelimiter="," name="Item" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="2" __schemaType="{http://www.alainn.com/SOA/model/1.0}itemType" __sourcePath="{http://www.alainn.com/SOA/model/1.0=ns1,http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns1:Item/id" containerType="SINGLE" label="id" name="id" type="string"/>
+<Field __index="3" __schemaType="{http://www.alainn.com/SOA/model/1.0}itemType" __sourcePath="{http://www.alainn.com/SOA/model/1.0=ns1,http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns1:Item/type" containerType="SINGLE" label="type" name="type" type="string"/>
+<Field __index="4" __schemaType="{http://www.alainn.com/SOA/model/1.0}itemType" __sourcePath="{http://www.alainn.com/SOA/model/1.0=ns1,http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns1:Item/name" containerType="SINGLE" label="name" name="name" type="string"/>
+<Field __index="5" __schemaType="{http://www.alainn.com/SOA/model/1.0}itemType" __sourcePath="{http://www.alainn.com/SOA/model/1.0=ns1,http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns1:Item/summary" containerType="SINGLE" label="summary" name="summary" type="string"/>
+<Field __index="6" __schemaType="{http://www.alainn.com/SOA/model/1.0}itemType" __sourcePath="{http://www.alainn.com/SOA/model/1.0=ns1,http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns1:Item/brand" containerType="SINGLE" label="brand" name="brand" type="string"/>
+<Field __index="9" __schemaType="{http://www.alainn.com/SOA/model/1.0}itemType" __sourcePath="{http://www.alainn.com/SOA/model/1.0=ns1,http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse/ns1:Item/description" containerType="SINGLE" label="description" name="description" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="2" __referenceCounter="1" __sourcePath="{}/mapMetadata/items" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="4db5766c-79bd-49b9-b098-fa0f0213c241" _parent_id="__parent_id" _type="Input" id="72048ce6-5eeb-4fbe-8b5c-90e117b19145">
+<Record fieldDelimiter="," name="items" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="2" __sourcePath="{}/mapMetadata/items/item_x005fid" containerType="SINGLE" label="item_id" name="item_id" type="string"/>
+<Field __index="3" __sourcePath="{}/mapMetadata/items/item_x005fname" containerType="SINGLE" label="item_name" name="item_name" type="string"/>
+<Field __index="4" __sourcePath="{}/mapMetadata/items/item_x005fsummary" containerType="SINGLE" label="item_summary" name="item_summary" type="string"/>
+<Field __index="5" __sourcePath="{}/mapMetadata/items/item_x005fdescription" containerType="SINGLE" label="item_description" name="item_description" type="string"/>
+<Field __index="6" __sourcePath="{}/mapMetadata/items/item_x005fbrand" containerType="SINGLE" label="item_brand" name="item_brand" type="string"/>
+<Field __index="7" __sourcePath="{}/mapMetadata/items/item_x005ftype_x005fname" containerType="SINGLE" label="item_type_name" name="item_type_name" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/mapMetadata" _dataStructure="OBJECT" _id="__id" _type="Input" id="4db5766c-79bd-49b9-b098-fa0f0213c241">
+<Record fieldDelimiter="," name="mapMetadata" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/mapMetadata/pageInfo/index" containerType="SINGLE" label="index" name="index" type="integer"/>
+<Field __index="1" __sourcePath="{}/mapMetadata/pageInfo/size" containerType="SINGLE" label="size" name="size" type="integer"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:inputPayload" guiName="Map&lt;k,v&gt; READER" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath=".">
+  <Mapping cloverField="index" trim="true" xpath="pageInfo/index"/>
+  <Mapping cloverField="size" trim="true" xpath="pageInfo/size"/>
+  <Context generatedKey="__parent_id" outPort="1" parentKey="__id" sequenceField="__id" xpath="items">
+    <Mapping cloverField="item_id" trim="true" xpath="item_x005fid"/>
+    <Mapping cloverField="item_name" trim="true" xpath="item_x005fname"/>
+    <Mapping cloverField="item_summary" trim="true" xpath="item_x005fsummary"/>
+    <Mapping cloverField="item_description" trim="true" xpath="item_x005fdescription"/>
+    <Mapping cloverField="item_brand" trim="true" xpath="item_x005fbrand"/>
+    <Mapping cloverField="item_type_name" trim="true" xpath="item_x005ftype_x005fname"/>
+    <Context generatedKey="__parent_id" outPort="2" parentKey="__id" sequenceField="__id" xpath="images">
+      <Mapping cloverField="url" trim="true" xpath="url"/>
+      <Mapping cloverField="image_type_name" trim="true" xpath="image_x005ftype_x005fname"/>
+    </Context>
+  </Context>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+<attr name="__dataSourceDefinition"><![CDATA[${Project_Home}/src/test/resources/items-structured.groovy]]></attr>
+</Node>
+<Node cacheInMemory="true" charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="XML WRITER" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER" xmlSchemaURL="./src/main/resources/service/SOA-Message-1.0.xsd">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<clover:element clover:name="ns0:getItemsResponse" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" xmlns:ns0="http://www.alainn.com/SOA/message/1.0" clover:inPort="0">
+  <clover:element clover:name="ns0:PageInfo">
+    <pageIndex>$0.pageIndex</pageIndex>
+    <pageSize>$0.pageSize</pageSize>
+  </clover:element>
+  <clover:element clover:name="ns1:Item" xmlns:ns1="http://www.alainn.com/SOA/model/1.0" clover:inPort="1" clover:key="__parent_id" clover:parentKey="__id">
+    <id>$1.id</id>
+    <type>$1.type</type>
+    <name>$1.name</name>
+    <summary>$1.summary</summary>
+    <brand>$1.brand</brand>
+    <images>
+      <image type="$2.type" clover:inPort="2" clover:key="__parent_id" clover:parentKey="__id">$2.text</image>
+    </images>
+    <description>$1.description</description>
+  </clover:element>
+</clover:element>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__rootGlobalElementName"><![CDATA[{http://www.alainn.com/SOA/message/1.0}getItemsResponse]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'images' -&gt; 'image'" guiX="460" guiY="220" id="FOREACH_IMAGES_IMAGE" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__parent_id;
+//END -> DO NOT REMOVE
+output.text = input.url;
+output.type = input.image_type_name;]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'items' -&gt; 'ns1:Item'" guiX="460" guiY="120" id="FOREACH_ITEMS_NS1_ITEM" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__parent_id;
+//END -> DO NOT REMOVE
+output.id = input.item_id;
+output.name = input.item_name;
+output.summary = input.item_summary;
+output.description = input.item_description;
+output.brand = input.item_brand;
+output.type = input.item_type_name;]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'mapMetadata' -&gt; 'ns0:getItemsResponse'" guiX="460" guiY="20" id="FOREACH_MAP_METADATA_NS0_GET_ITEMS_RESPONSE" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.pageIndex = input.index;
+output.pageSize = input.size;]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="4db5766c-79bd-49b9-b098-fa0f0213c241" outPort="Port 0 (out)" toNode="FOREACH_MAP_METADATA_NS0_GET_ITEMS_RESPONSE:0"/>
+<Edge debugMode="true" fromNode="BEAN_READER0:1" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="72048ce6-5eeb-4fbe-8b5c-90e117b19145" outPort="Port 1 (out)" toNode="FOREACH_ITEMS_NS1_ITEM:0"/>
+<Edge debugMode="true" fromNode="BEAN_READER0:2" guiBendpoints="" id="Edge4" inPort="Port 0 (in)" metadata="2f291730-c917-45bc-9bf6-0c84d342e1ae" outPort="Port 2 (out)" toNode="FOREACH_IMAGES_IMAGE:0"/>
+<Edge debugMode="true" fromNode="FOREACH_IMAGES_IMAGE:0" guiBendpoints="" id="Edge5" inPort="Port 2 (in)" metadata="1cedaad7-4ae2-451e-9416-3d3437b9d135" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:2"/>
+<Edge debugMode="true" fromNode="FOREACH_ITEMS_NS1_ITEM:0" guiBendpoints="" id="Edge3" inPort="Port 1 (in)" metadata="a23220f6-1dd5-4e45-bacc-a45bc5d8ce6b" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:1"/>
+<Edge debugMode="true" fromNode="FOREACH_MAP_METADATA_NS0_GET_ITEMS_RESPONSE:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="2a07021c-5241-470a-bb78-02d31d994835" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+</Phase>
+</Graph>
