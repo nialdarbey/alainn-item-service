@@ -22,9 +22,9 @@
             <property name="receiveBacklog" value="0"/>
             <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/https/connector"/>
             <property name="validateConnections" value="true"/>
-            <property name="sendTcpNoDelay"/>
             <property name="keepAlive"/>
             <property name="label"/>
+            <property name="sendTcpNoDelay"/>
             <property name="proxyPort"/>
             <property name="dispatcherPoolFactory-ref"/>
             <property name="connectionTimeout"/>
@@ -93,27 +93,40 @@
             <property name="transformationGraphPath" value="map_to_xml.grf"/>
         </properties>
     </global-element>
-    <global-element name="XML_To_Map" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" entity-id="!!!f2027310-ed8d-4b63-a79b-2500c106a4c4">
+    <global-element name="XML_To_Map" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" entity-id="DataMapper#3">
         <properties>
-            <property name="doc:description" value="XML To Map"/>
             <property name="name" value="XML_To_Map"/>
-            <property name="doc:name" value="XML_To_Map"/>
+            <property name="auxiliary;index" value="11"/>
             <property name="transformationGraphPath" value="xml_to_map.grf"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="ItemserviceFlow1" type="http://www.mulesoft.org/schema/mule/core/flow" entity-id="22788c36-1c2c-4252-9439-9c65af00eca4">
+    <global-element name="Map_To_XML" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" entity-id="DataMapper#4">
+        <properties>
+            <property name="name" value="Map_To_XML3"/>
+            <property name="auxiliary;index" value="12"/>
+            <property name="transformationGraphPath" value="map_to_xml_3.grf"/>
+        </properties>
+    </global-element>
+    <global-element name="Map_To_XML" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" entity-id="DataMapper#5">
+        <properties>
+            <property name="name" value="Map_To_XML"/>
+            <property name="auxiliary;index" value="13"/>
+            <property name="transformationGraphPath" value="map_to_xml_2.grf"/>
+        </properties>
+    </global-element>
+    <flow SubFlow="false" name="ItemserviceFlow1" type="http://www.mulesoft.org/schema/mule/core/flow" entity-id="127dce27-360e-4ee8-a5b9-4304e72c27d6">
         <properties>
             <property name="initialState"/>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
             <property name="bussinessEventsLabel"/>
             <property name="tracking:enable-default-events"/>
-            <property name="auxiliary;index" value="11"/>
+            <property name="auxiliary;index" value="14"/>
         </properties>
         <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
             <graphicalData x="0" y="0" width="0" height="0"/>
             <endpoint direction="Inbound" name=":8081/item-service" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#1">
-                <graphicalData x="21" y="234" width="119" height="373"/>
+                <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="port" value="${https.port}"/>
                     <property name="host" value="localhost"/>
@@ -138,12 +151,12 @@
                     <property name="responseTimeout"/>
                     <property name="mimeType"/>
                     <property name="connector-ref-outbound" value="httpsConnector"/>
-                    <property name="auxiliary;index" value="12"/>
+                    <property name="auxiliary;index" value="15"/>
                     <property name="connector-ref" value="httpsConnector"/>
                 </properties>
             </endpoint>
             <pattern name="Proxy service" type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" entity-id="CXF#1">
-                <graphicalData x="200" y="234" width="85" height="373"/>
+                <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="port" value="ItemPort"/>
                     <property name="wsdlLocation" value="service/ItemService.wsdl"/>
@@ -159,117 +172,127 @@
                     <property name="mtomEnabled"/>
                     <property name="soapVersion"/>
                     <property name="enableMuleSoapHeaders"/>
-                    <property name="auxiliary;index" value="13"/>
+                    <property name="auxiliary;index" value="16"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/schemaLocations;0">
-                        <property name="auxiliary;index" value="14"/>
-                        <property name="auxiliary;wrapIn" value="14"/>
+                        <property name="auxiliary;index" value="17"/>
+                        <property name="auxiliary;wrapIn" value="17"/>
                         <property-collection name="@http://www.mulesoft.org/schema/mule/cxf/schemaLocation;1">
                             <property name="schemaLocation" value="service/SOA-Message-1.0.xsd"/>
-                            <property name="auxiliary;index" value="15"/>
-                            <property name="auxiliary;wrapIn" value="15"/>
+                            <property name="auxiliary;index" value="18"/>
+                            <property name="auxiliary;wrapIn" value="18"/>
                         </property-collection>
                     </property-collection>
                 </properties>
             </pattern>
-            <pattern name="DOM to XML" type="http://www.mulesoft.org/schema/mule/xml/dom-to-xml-transformer" entity-id="0f05abc0-d256-4af9-a1d2-37375947916e">
+            <pattern name="DOM to XML" type="http://www.mulesoft.org/schema/mule/xml/dom-to-xml-transformer" entity-id="DOM to XML#1">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
-                    <property name="auxiliary;moved-from"/>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="outputEncoding"/>
+                    <property name="auxiliary;index" value="19"/>
+                    <property name="mimeType"/>
                 </properties>
-                <description></description>
             </pattern>
             <pattern name="opName" type="http://www.mulesoft.org/schema/mule/core/variable-transformer" entity-id="Variable#1">
-                <graphicalData x="345" y="234" width="68" height="67"/>
+                <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="variableName" value="opName"/>
                     <property name="value" value="#[xpath('fn:local-name(/*)')]"/>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/core/set-variable"/>
-                    <property name="auxiliary;index" value="16"/>
+                    <property name="auxiliary;index" value="20"/>
                 </properties>
             </pattern>
-            <splitter index="17" name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#1">
-                <graphicalData x="473" y="29" width="809" height="476"/>
+            <splitter index="21" name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
-                    <property name="updated"/>
-                    <property name=";INDEX" value="17"/>
-                    <property name="tracking:enable-default-events" value="false"/>
-                    <property-collection name="cc33187e-6536-4eba-9e8c-0b3884f83f40">
+                    <property name=";INDEX" value="21"/>
+                    <property-collection name="f4407d9c-1cc3-4406-87a9-5f13526e5fc3">
                         <property name="choice.expression" value="#[opName == 'getItems']"/>
                         <property-collection name="choice.attributes">
                             <property name="expression" value="#[opName == 'getItems']"/>
                         </property-collection>
                     </property-collection>
-                    <property-collection name="50a1678c-c4b0-47f5-9b60-319eeea7f314">
+                    <property-collection name="00c4a7af-b06a-40ec-b6cf-00d6258f6864">
                         <property name="choice.expression" value="#[opName == 'getItem']"/>
                         <property-collection name="choice.attributes">
                             <property name="expression" value="#[opName == 'getItem']"/>
                         </property-collection>
                     </property-collection>
-                    <property-collection name="5c5fed51-1df6-4e4f-af1b-73a41e565e44">
+                    <property-collection name="78acc57e-e699-4672-a9ae-169241b707ee">
                         <property name="choice.expression" value="#[opName == 'getTypes']"/>
                         <property-collection name="choice.attributes">
                             <property name="expression" value="#[opName == 'getTypes']"/>
                         </property-collection>
                     </property-collection>
-                    <property-collection name="6a687af4-644b-4208-a630-6da000c7f3cb">
+                    <property-collection name="311ead02-0420-41c8-8edc-e1c1331944c5">
                         <property name="choice.expression" value="#[opName == 'modifySKUStockCount']"/>
                         <property-collection name="choice.attributes">
-                            <property name="expression" value="#[opName == 'modifySkuStockCount']"/>
+                            <property name="expression" value="#[opName == 'modifySKUStockCount']"/>
                         </property-collection>
                     </property-collection>
-                    <property-collection name="43c853ec-8de9-4600-837d-6acf6fb1c146">
+                    <property-collection name="4a5baf04-856b-4366-9cf0-ee499e2d5298">
+                        <property name="choice.expression" value="#[opName == 'getBrands']"/>
+                        <property-collection name="choice.attributes">
+                            <property name="expression" value="#[opName == 'getBrands']"/>
+                        </property-collection>
+                    </property-collection>
+                    <property-collection name="d2727e61-852f-4d01-a8ca-590a41cb91b6">
                         <property name="choice.otherwise" value="true"/>
-                        <property name="choice.expression" value=""/>
                         <property-collection name="choice.attributes"/>
                     </property-collection>
                 </properties>
                 <description></description>
                 <pattern name="Choice" type="org.mule.tooling.ui.modules.core.pattern.cbr" entity-id="Choice#2">
                     <properties>
-                        <property name="updated"/>
-                        <property name=";INDEX" value="17"/>
-                        <property name="tracking:enable-default-events" value="false"/>
-                        <property-collection name="cc33187e-6536-4eba-9e8c-0b3884f83f40">
+                        <property name=";INDEX" value="21"/>
+                        <property-collection name="f4407d9c-1cc3-4406-87a9-5f13526e5fc3">
                             <property name="choice.expression" value="#[opName == 'getItems']"/>
                             <property-collection name="choice.attributes">
 <property name="expression" value="#[opName == 'getItems']"/>
                             </property-collection>
                         </property-collection>
-                        <property-collection name="50a1678c-c4b0-47f5-9b60-319eeea7f314">
+                        <property-collection name="00c4a7af-b06a-40ec-b6cf-00d6258f6864">
                             <property name="choice.expression" value="#[opName == 'getItem']"/>
                             <property-collection name="choice.attributes">
 <property name="expression" value="#[opName == 'getItem']"/>
                             </property-collection>
                         </property-collection>
-                        <property-collection name="5c5fed51-1df6-4e4f-af1b-73a41e565e44">
+                        <property-collection name="78acc57e-e699-4672-a9ae-169241b707ee">
                             <property name="choice.expression" value="#[opName == 'getTypes']"/>
                             <property-collection name="choice.attributes">
 <property name="expression" value="#[opName == 'getTypes']"/>
                             </property-collection>
                         </property-collection>
-                        <property-collection name="6a687af4-644b-4208-a630-6da000c7f3cb">
+                        <property-collection name="311ead02-0420-41c8-8edc-e1c1331944c5">
                             <property name="choice.expression" value="#[opName == 'modifySKUStockCount']"/>
                             <property-collection name="choice.attributes">
-<property name="expression" value="#[opName == 'modifySkuStockCount']"/>
+<property name="expression" value="#[opName == 'modifySKUStockCount']"/>
                             </property-collection>
                         </property-collection>
-                        <property-collection name="43c853ec-8de9-4600-837d-6acf6fb1c146">
+                        <property-collection name="4a5baf04-856b-4366-9cf0-ee499e2d5298">
+                            <property name="choice.expression" value="#[opName == 'getBrands']"/>
+                            <property-collection name="choice.attributes">
+<property name="expression" value="#[opName == 'getBrands']"/>
+                            </property-collection>
+                        </property-collection>
+                        <property-collection name="d2727e61-852f-4d01-a8ca-590a41cb91b6">
                             <property name="choice.otherwise" value="true"/>
-                            <property name="choice.expression" value=""/>
                             <property-collection name="choice.attributes"/>
                         </property-collection>
                     </properties>
                     <description></description>
                 </pattern>
                 <compartment entity-id="compartment#1">
-                    <lane hadOnlyOneElement="false" index="19" isChoiceOtherwiseLane="false" entity-id="cc33187e-6536-4eba-9e8c-0b3884f83f40">
+                    <lane hadOnlyOneElement="false" index="23" isChoiceOtherwiseLane="false" entity-id="f4407d9c-1cc3-4406-87a9-5f13526e5fc3">
                         <pattern name="imageMultiple" type="http://www.mulesoft.org/schema/mule/core/variable-transformer" entity-id="Variable#2">
                             <graphicalData x="0" y="0" width="0" height="0"/>
                             <properties>
 <property name="variableName" value="imageMultiple"/>
 <property name="value" value="#[xpath('/mes:getItems/mes:ImageType/text()').text.split(',').length]"/>
 <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/core/set-variable"/>
-<property name="auxiliary;index" value="19"/>
+<property name="auxiliary;index" value="23"/>
                             </properties>
                         </pattern>
                         <pattern name="pageSize" type="http://www.mulesoft.org/schema/mule/core/variable-transformer" entity-id="Variable#3">
@@ -278,7 +301,7 @@
 <property name="variableName" value="limit"/>
 <property name="value" value="#[Integer.valueOf(xpath('/mes:getItems/mes:PageInfo/pageSize/text()').text) * imageMultiple]"/>
 <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/core/set-variable"/>
-<property name="auxiliary;index" value="20"/>
+<property name="auxiliary;index" value="24"/>
                             </properties>
                         </pattern>
                         <pattern name="select items" type="http://www.mulesoft.org/schema/mule/db/database-connector" entity-id="Database#1">
@@ -293,11 +316,11 @@
 <property name="maxRows"/>
 <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/db/select"/>
 <property name="config-ref" value="MySQL_Configuration"/>
-<property name="auxiliary;index" value="21"/>
+<property name="auxiliary;index" value="25"/>
 <property-collection name="@http://www.mulesoft.org/schema/mule/db/dynamic-query;0">
-    <property name="text" value="select i.item_id, i.item_name, i.item_summary, i.item_description, i.item_brand, &#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;it.item_type_name, im.url, imt.image_type_name &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;from item i, item_type it, image im, image_type imt&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;where i.item_type_id = it.id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and im.item_id = i.item_id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and im.image_type_id = imt.id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    and it.item_type_name like '#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/type/text()').text; n == '*' ? '%' : n + '%']' &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    and i.item_name like '#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/name/text()').text; n == '*' ? '%' : n + '%']'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    and i.item_brand like '#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/brand/text()').text; n == '*' ? '%' : n + '%']'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    and imt.image_type_name in ('#[xpath('/mes:getItems/mes:ImageType/text()').text.replaceAll(&quot;,&quot;, &quot;','&quot;)]') &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    order by item_id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    limit #[Integer.valueOf(xpath('/mes:getItems/mes:PageInfo/pageIndex/text()').text)],#[limit] "/>
-    <property name="auxiliary;index" value="22"/>
-    <property name="auxiliary;wrapIn" value="22"/>
+    <property name="text" value="select i.item_id, i.item_name, i.item_summary, i.item_description, i.item_brand, &#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;it.item_type_name, im.url, imt.image_type_name &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;from item i, item_type it, image im, image_type imt&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;where i.item_type_id = it.id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and im.item_id = i.item_id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and im.image_type_id = imt.id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    and it.item_type_name like '#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/type/text()').text; n == '*' ? '%' : n + '%']' &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    and i.item_name like '#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/name/text()').text; n == '*' ? '%' : n + '%']'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    and i.item_brand like '#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/brand/text()').text; n == '*' ? '%' : n + '%']'&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    and imt.image_type_name in ('#[xpath('/mes:getItems/mes:ImageType/text()').text.replaceAll(&quot;,&quot;, &quot;','&quot;)]') &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    order by item_id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;    limit #[Integer.valueOf(xpath('/mes:getItems/mes:PageInfo/pageIndex/text()').text)],#[limit]"/>
+    <property name="auxiliary;index" value="26"/>
+    <property name="auxiliary;wrapIn" value="26"/>
 </property-collection>
                             </properties>
                         </pattern>
@@ -312,11 +335,11 @@
 <property name="custom-evaluator"/>
 <property name="encoding"/>
 <property name="evaluator"/>
-<property name="auxiliary;index" value="23"/>
+<property name="auxiliary;index" value="27"/>
 <property name="mimeType"/>
                             </properties>
                         </pattern>
-                        <pattern name="Map To XML" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="DataMapper#3">
+                        <pattern name="Map To XML" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="DataMapper#6">
                             <graphicalData x="0" y="0" width="0" height="0"/>
                             <properties>
 <property name="returnClass"/>
@@ -326,11 +349,11 @@
 <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform"/>
 <property name="pipeSize"/>
 <property name="config-ref" value="map_to_xml"/>
-<property name="auxiliary;index" value="24"/>
+<property name="auxiliary;index" value="28"/>
                             </properties>
                         </pattern>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="26" isChoiceOtherwiseLane="false" entity-id="50a1678c-c4b0-47f5-9b60-319eeea7f314">
+                    <lane hadOnlyOneElement="false" index="30" isChoiceOtherwiseLane="false" entity-id="00c4a7af-b06a-40ec-b6cf-00d6258f6864">
                         <pattern name="select item" type="http://www.mulesoft.org/schema/mule/db/database-connector" entity-id="Database#2">
                             <graphicalData x="0" y="0" width="0" height="0"/>
                             <properties>
@@ -343,11 +366,11 @@
 <property name="maxRows"/>
 <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/db/select"/>
 <property name="config-ref" value="MySQL_Configuration"/>
-<property name="auxiliary;index" value="26"/>
+<property name="auxiliary;index" value="30"/>
 <property-collection name="@http://www.mulesoft.org/schema/mule/db/dynamic-query;0">
-    <property name="text" value="select i.item_id, it.item_type_name, i.item_name, i.item_brand, i.item_description, &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;si.sku_id, si.sku_name, si.sku_summary, si.price, si.stock_quantity, &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;im.url, imt.image_type_name &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;from item i, item_type it, sku_item si, image im, image_type imt &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;where i.item_type_id = it.id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and si.item_id = i.item_id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and si.sku_id = im.item_sku_id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and im.image_type_id = imt.id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and i.item_id = '#[xpath('/mes:getItem/mod:ItemId/text()').text]' &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and si.item_id = i.item_id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and imt.image_type_name in ('#[xpath('/mes:getItem/mes:ImageType/text()').text.replaceAll(&quot;,&quot;, &quot;','&quot;)]')&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;"/>
-    <property name="auxiliary;index" value="27"/>
-    <property name="auxiliary;wrapIn" value="27"/>
+    <property name="text" value="select i.item_id, it.item_type_name, i.item_name, i.item_brand, i.item_description, &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;si.sku_id, si.sku_name, si.sku_summary, si.price, si.stock_quantity, &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;im.url, imt.image_type_name &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;from item i, item_type it, sku_item si, image im, image_type imt &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;where i.item_type_id = it.id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and si.item_id = i.item_id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and si.sku_id = im.item_sku_id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and im.image_type_id = imt.id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and i.item_id = '#[xpath('/mes:getItem/mod:ItemId/text()').text]' &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and si.item_id = i.item_id&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and imt.image_type_name in ('#[xpath('/mes:getItem/mes:ImageType/text()').text.replaceAll(&quot;,&quot;, &quot;','&quot;)]')"/>
+    <property name="auxiliary;index" value="31"/>
+    <property name="auxiliary;wrapIn" value="31"/>
 </property-collection>
                             </properties>
                         </pattern>
@@ -362,11 +385,11 @@
 <property name="custom-evaluator"/>
 <property name="encoding"/>
 <property name="evaluator"/>
-<property name="auxiliary;index" value="28"/>
+<property name="auxiliary;index" value="32"/>
 <property name="mimeType"/>
                             </properties>
                         </pattern>
-                        <pattern name="Map To XML" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="DataMapper#4">
+                        <pattern name="Map To XML" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="DataMapper#7">
                             <graphicalData x="0" y="0" width="0" height="0"/>
                             <properties>
 <property name="returnClass"/>
@@ -376,86 +399,167 @@
 <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform"/>
 <property name="pipeSize"/>
 <property name="config-ref" value="map_to_xml_1"/>
-<property name="auxiliary;index" value="29"/>
+<property name="auxiliary;index" value="33"/>
                             </properties>
                         </pattern>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="31" isChoiceOtherwiseLane="false" entity-id="5c5fed51-1df6-4e4f-af1b-73a41e565e44">
+                    <lane hadOnlyOneElement="false" index="35" isChoiceOtherwiseLane="false" entity-id="78acc57e-e699-4672-a9ae-169241b707ee">
                         <pattern name="select types" type="http://www.mulesoft.org/schema/mule/db/database-connector" entity-id="Database#3">
                             <graphicalData x="0" y="0" width="0" height="0"/>
                             <properties>
-<property name="streaming" value="false"/>
-<property name="fetchSize" value=""/>
-<property name="auxiliary;erased;fetchSize" value="true"/>
-<property name="source" value=""/>
-<property name="updated"/>
-<property name="transactionalAction" value="JOIN_IF_POSSIBLE"/>
-<property name="maxRows" value=""/>
-<property name="auxiliary;erased;maxRows" value="true"/>
-<property name="target" value=""/>
+<property name="streaming"/>
+<property name=""/>
+<property name="fetchSize"/>
+<property name="source"/>
+<property name="transactionalAction"/>
+<property name="target" value="flowVars.types"/>
+<property name="maxRows"/>
 <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/db/select"/>
 <property name="config-ref" value="MySQL_Configuration"/>
-<property name="auxiliary;index" value="31"/>
-<property name="auxiliary;metametadataStrategy" value="new-database-metadata-strategy"/>
+<property name="auxiliary;index" value="35"/>
 <property-collection name="@http://www.mulesoft.org/schema/mule/db/parameterized-query;0">
-    <property name="text" value="select * from item_type"/>
+    <property name="text" value="select item_type_name from item_type&#xA;order by item_type_name&#xA;limit #[Integer.valueOf(xpath('/mes:getTypes/mes:PageInfo/pageIndex/text()').text)],&#xA;#[Integer.valueOf(xpath('/mes:getTypes/mes:PageInfo/pageSize/text()').text)]"/>
+    <property name="auxiliary;index" value="36"/>
+    <property name="auxiliary;wrapIn" value="36"/>
 </property-collection>
                             </properties>
-                            <description></description>
+                        </pattern>
+                        <pattern name="to []" type="http://www.mulesoft.org/schema/mule/core/expression-transformer" entity-id="Expression#3">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <properties>
+<property name="expression" value="&#xA;                &#x9;np = [ 'pageInfo' : [ 'index' : Integer.valueOf(xpath('/mes:getTypes/mes:PageInfo/pageIndex/text()').text), 'size' : types.size() ], 'items' : [] ];&#xA;                &#x9;for (record :  types) {&#xA;                &#x9;&#x9;np.items.add(record.item_type_name);&#xA;                &#x9;}&#xA;                &#x9;np&#xA;                "/>
+<property name="returnClass"/>
+<property name="ignoreBadInput"/>
+<property name="returnSourceIfNull"/>
+<property name="name"/>
+<property name="custom-evaluator"/>
+<property name="encoding"/>
+<property name="evaluator"/>
+<property name="auxiliary;index" value="37"/>
+<property name="mimeType"/>
+                            </properties>
+                        </pattern>
+                        <pattern name="Map To XML" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="DataMapper#8">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <properties>
+<property name="returnClass"/>
+<property name="stream"/>
+<property name="input-ref"/>
+<property name="target"/>
+<property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform"/>
+<property name="pipeSize"/>
+<property name="config-ref" value="Map_To_XML"/>
+<property name="auxiliary;index" value="38"/>
+                            </properties>
                         </pattern>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="34" isChoiceOtherwiseLane="false" entity-id="6a687af4-644b-4208-a630-6da000c7f3cb">
-                        <pattern name="XML To Map" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="7152c095-de94-476e-bb5b-2747cc935c5d">
-                            <graphicalData x="762" y="320" width="80" height="67"/>
+                    <lane hadOnlyOneElement="false" index="40" isChoiceOtherwiseLane="false" entity-id="311ead02-0420-41c8-8edc-e1c1331944c5">
+                        <pattern name="XML To Map" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="DataMapper#9">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
                             <properties>
-<property name="input-ref" value="#[payload]"/>
+<property name="returnClass"/>
+<property name="stream"/>
+<property name="input-ref"/>
+<property name="target"/>
 <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform"/>
+<property name="pipeSize"/>
 <property name="config-ref" value="XML_To_Map"/>
+<property name="auxiliary;index" value="40"/>
                             </properties>
                         </pattern>
                         <pattern name="Bulk modify sku stock count" type="http://www.mulesoft.org/schema/mule/db/database-connector" entity-id="Database#4">
-                            <graphicalData x="902" y="313" width="100" height="80"/>
+                            <graphicalData x="0" y="0" width="0" height="0"/>
                             <properties>
-<property name="source" value=""/>
-<property name="updated"/>
-<property name="transactionalAction" value="JOIN_IF_POSSIBLE"/>
+<property name=""/>
+<property name="source"/>
+<property name="transactionalAction"/>
+<property name="target"/>
 <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/db/update"/>
-<property name="target" value=""/>
 <property name="config-ref" value="MySQL_Configuration"/>
-<property name="auxiliary;metametadataStrategy" value="new-database-metadata-strategy"/>
+<property name="auxiliary;index" value="41"/>
 <property name="bulkMode" value="true"/>
 <property-collection name="@http://www.mulesoft.org/schema/mule/db/parameterized-query;0">
     <property name="text" value="update sku_item set stock_quantity = stock_quantity - #[payload.quantity] where sku_id = #[payload.sku]"/>
+    <property name="auxiliary;index" value="42"/>
+    <property name="auxiliary;wrapIn" value="42"/>
 </property-collection>
                             </properties>
-                            <description></description>
                         </pattern>
-                        <pattern name="modifySkuStockCountResponse.xml" type="http://www.mulesoft.org/schema/mule/core/parse-template" entity-id="5df853c5-178d-4243-97ac-8f2daa596d89">
-                            <graphicalData x="1062" y="320" width="206" height="67"/>
+                        <pattern name="modifySkuStockCountResponse.xml" type="http://www.mulesoft.org/schema/mule/core/parse-template" entity-id="Parse Template#1">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
                             <properties>
-<property name="updated"/>
 <property name="location" value="modifySkuStockCountResponse.xml"/>
+<property name="auxiliary;index" value="43"/>
                             </properties>
-                            <description></description>
                         </pattern>
                     </lane>
-                    <lane hadOnlyOneElement="false" index="38" isChoiceOtherwiseLane="true" entity-id="43c853ec-8de9-4600-837d-6acf6fb1c146">
+                    <lane hadOnlyOneElement="false" index="45" isChoiceOtherwiseLane="false" entity-id="4a5baf04-856b-4366-9cf0-ee499e2d5298">
+                        <pattern name="select brands" type="http://www.mulesoft.org/schema/mule/db/database-connector" entity-id="Database#5">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <properties>
+<property name="streaming"/>
+<property name=""/>
+<property name="fetchSize"/>
+<property name="source"/>
+<property name="transactionalAction"/>
+<property name="target" value="flowVars.brands"/>
+<property name="maxRows"/>
+<property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/db/select"/>
+<property name="config-ref" value="MySQL_Configuration"/>
+<property name="auxiliary;index" value="45"/>
+<property-collection name="@http://www.mulesoft.org/schema/mule/db/parameterized-query;0">
+    <property name="text" value="select distinct item_brand &#xA;from item &#xA;where item_brand != ''&#xA;order by item_brand&#xA;limit #[Integer.valueOf(xpath('/mes:getBrands/mes:PageInfo/pageIndex/text()').text)],&#xA;#[Integer.valueOf(xpath('/mes:getBrands/mes:PageInfo/pageSize/text()').text)]"/>
+    <property name="auxiliary;index" value="46"/>
+    <property name="auxiliary;wrapIn" value="46"/>
+</property-collection>
+                            </properties>
+                        </pattern>
+                        <pattern name="to []" type="http://www.mulesoft.org/schema/mule/core/expression-transformer" entity-id="Expression#4">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <properties>
+<property name="expression" value="&#xA;                &#x9;np = [ 'pageInfo' : [ 'index' : Integer.valueOf(xpath('/mes:getBrands/mes:PageInfo/pageIndex/text()').text), 'size' : brands.size() ], 'items' : [] ];&#xA;                &#x9;for (record :  brands) {&#xA;                &#x9;&#x9;np.items.add(record.item_brand);&#xA;                &#x9;}&#xA;                &#x9;np&#xA;                "/>
+<property name="returnClass"/>
+<property name="ignoreBadInput"/>
+<property name="returnSourceIfNull"/>
+<property name="name"/>
+<property name="custom-evaluator"/>
+<property name="encoding"/>
+<property name="evaluator"/>
+<property name="auxiliary;index" value="47"/>
+<property name="mimeType"/>
+                            </properties>
+                        </pattern>
+                        <pattern name="Map to Xml&lt;getBrandsResponse&gt;" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="DataMapper#10">
+                            <graphicalData x="0" y="0" width="0" height="0"/>
+                            <properties>
+<property name="returnClass"/>
+<property name="stream"/>
+<property name="input-ref"/>
+<property name="target"/>
+<property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform"/>
+<property name="pipeSize"/>
+<property name="config-ref" value="Map_To_XML3"/>
+<property name="auxiliary;index" value="48"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                    <lane hadOnlyOneElement="false" index="50" isChoiceOtherwiseLane="true" entity-id="d2727e61-852f-4d01-a8ca-590a41cb91b6">
                         <pattern name="Exception" type="http://www.mulesoft.org/schema/mule/scripting/groovyComponent" entity-id="Groovy#1">
                             <graphicalData x="0" y="0" width="0" height="0"/>
                             <properties>
 <property name="script-ref"/>
-<property name="auxiliary;index" value="38"/>
+<property name="auxiliary;index" value="50"/>
 <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
     <property name="text" value="throw new RuntimeException(&quot;Unknown Operation: &quot; + flowVars.opName);"/>
     <property name="engine" value="Groovy"/>
-    <property name="auxiliary;index" value="39"/>
-    <property name="auxiliary;wrapIn" value="39"/>
+    <property name="auxiliary;index" value="51"/>
+    <property name="auxiliary;wrapIn" value="51"/>
 </property-collection>
 <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
     <property name="text" value="throw new RuntimeException(&quot;Unknown Operation: &quot; + flowVars.opName);"/>
     <property name="engine" value="Groovy"/>
-    <property name="auxiliary;index" value="39"/>
-    <property name="auxiliary;wrapIn" value="39"/>
+    <property name="auxiliary;index" value="51"/>
+    <property name="auxiliary;wrapIn" value="51"/>
 </property-collection>
                             </properties>
                         </pattern>

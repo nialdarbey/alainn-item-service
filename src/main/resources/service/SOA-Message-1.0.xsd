@@ -8,6 +8,7 @@
 	<element name="notifySKUItemMovement">
 		<complexType>
 			<sequence>
+				<element ref="mod:CustomerId" />
 				<element ref="mod:TransactedSku" maxOccurs="unbounded" />
 			</sequence>
 		</complexType>
@@ -58,7 +59,7 @@
 	<element name="processOrder">
 		<complexType>
 			<sequence>
-				<element ref="mod:Customer" />
+				<element ref="mod:CustomerId" />
 				<element ref="mod:Order" />
 			</sequence>
 		</complexType>
@@ -82,11 +83,27 @@
 	<element name="processRegistrationResponse">
 		<complexType>
 			<sequence>
-				<element ref="mod:CustomerRegistrationStatus" />
+				<element ref="mod:CustomerId" />
 			</sequence>
 		</complexType>
 	</element>
 
+	<element name="saveCustomer">
+		<complexType>
+			<sequence>
+				<element ref="mod:Customer" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="saveCustomerResponse">
+		<complexType>
+			<sequence>
+				<element ref="mod:CustomerId" />
+			</sequence>
+		</complexType>
+	</element>
+	
 	<element name="checkRegistrationEmail">
 		<complexType>
 			<sequence>
@@ -106,7 +123,7 @@
 	<element name="getBasket">
 		<complexType>
 			<sequence>
-				<element ref="tns:PageInfo" />
+				<element ref="tns:ImageType" minOccurs="0" />
 				<element ref="mod:CustomerId" />
 			</sequence>
 		</complexType>
@@ -116,7 +133,6 @@
 	<element name="getBasketResponse">
 		<complexType>
 			<sequence>
-				<element ref="tns:PageInfo" />
 				<element ref="mod:BasketItem" maxOccurs="unbounded" />
 			</sequence>
 		</complexType>
@@ -126,15 +142,15 @@
 		<complexType>
 			<sequence>
 				<element ref="mod:CustomerId" />
-				<element ref="mod:BasketItem" />
+				<element ref="mod:Sku" />
+				<element ref="mod:SkuQuantity" />
 			</sequence>
 		</complexType>
 	</element>
 
 
 
-	<element name="addToBasketResponse">
-	</element>
+	<element name="addToBasketResponse" />
 
 	<element name="removeFromBasket">
 		<complexType>
@@ -238,6 +254,7 @@
 		<complexType>
 			<sequence>
 				<element ref="tns:PageInfo" />
+				<element ref="tns:ImageType" minOccurs="0" />
 				<element ref="mod:CustomerId" />
 			</sequence>
 		</complexType>
@@ -284,6 +301,21 @@
 			</sequence>
 		</complexType>
 	</element>
+		<element name="getBrands">
+		<complexType>
+			<sequence>
+				<element ref="tns:PageInfo" />
+			</sequence>
+		</complexType>
+	</element>
+	<element name="getBrandsResponse">
+		<complexType>
+			<sequence>
+				<element ref="tns:PageInfo" />
+				<element ref="mod:Brand" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
 	<element name="getItem">
 		<complexType>
 			<sequence>
@@ -320,9 +352,7 @@
 			</sequence>
 		</complexType>
 	</element>
-	<element name="addLoyaltyPointsResponse">
-
-	</element>
+	<element name="addLoyaltyPointsResponse" />
 
 	<element name="addMobileToken">
 		<complexType>
@@ -332,9 +362,17 @@
 			</sequence>
 		</complexType>
 	</element>
-	<element name="addMobileTokenResponse">
-
+	<element name="addMobileTokenResponse" />
+	
+	<element name="addNotificationPreferences">
+		<complexType>
+			<sequence>
+				<element ref="mod:NotificationPreferences" />
+			</sequence>
+		</complexType>
 	</element>
+	<element name="addNotificationPreferencesResponse" />
+	
 	<element name="calculateDiscount">
 		<complexType>
 			<sequence>
@@ -350,6 +388,8 @@
 		<complexType>
 			<sequence>
 				<element ref="mod:Discount" />
+				<element ref="mod:TotalCost" />
+				<element ref="mod:LoyaltyPoints" />
 			</sequence>
 		</complexType>
 	</element>
@@ -360,7 +400,5 @@
 			</sequence>
 		</complexType>
 	</element>
-	<element name="distributeOrderResponse">
-
-	</element>
+	<element name="distributeOrderResponse" />
 </schema>

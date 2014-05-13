@@ -32,6 +32,8 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
     <data-mapper:config name="map_to_xml_1" transformationGraphPath="map_to_xml_1.grf" doc:name="map_to_xml_1"/>
     <data-mapper:config name="map_to_xml" transformationGraphPath="map_to_xml.grf" doc:name="map_to_xml"/>
     <data-mapper:config name="XML_To_Map" transformationGraphPath="xml_to_map.grf" doc:name="XML_To_Map"/>
+    <data-mapper:config name="Map_To_XML3" transformationGraphPath="map_to_xml_3.grf" doc:name="Map_To_XML"/>
+    <data-mapper:config name="Map_To_XML" transformationGraphPath="map_to_xml_2.grf" doc:name="Map_To_XML"/>
     
     <flow name="ItemserviceFlow1" doc:name="ItemserviceFlow1">
         <https:inbound-endpoint exchange-pattern="request-response" host="localhost" port="${https.port}" path="item-service" doc:name=":8081/item-service" connector-ref="httpsConnector"/>
@@ -58,7 +60,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 					    and i.item_brand like '#[n = xpath('/mes:getItems/mes:ItemSearchCriteria/brand/text()').text; n == '*' ? '%' : n + '%']'
 					    and imt.image_type_name in ('#[xpath('/mes:getItems/mes:ImageType/text()').text.replaceAll(",", "','")]') 
 					    order by item_id
-					    limit #[Integer.valueOf(xpath('/mes:getItems/mes:PageInfo/pageIndex/text()').text)],#[limit] ]]></db:dynamic-query>
+					    limit #[Integer.valueOf(xpath('/mes:getItems/mes:PageInfo/pageIndex/text()').text)],#[limit]]]></db:dynamic-query>
                 </db:select>
                 <expression-transformer doc:name="to []" expression="
                 	np = [ 'pageInfo' : [ 'index' : Integer.valueOf(xpath('/mes:getItems/mes:PageInfo/pageIndex/text()').text), 'size' : (items.size() / imageMultiple) ], 'items' : [] ];
@@ -94,8 +96,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 						and im.image_type_id = imt.id
 						and i.item_id = '#[xpath('/mes:getItem/mod:ItemId/text()').text]' 
 						and si.item_id = i.item_id
-						and imt.image_type_name in ('#[xpath('/mes:getItem/mes:ImageType/text()').text.replaceAll(",", "','")]')
-						]]></db:dynamic-query>
+						and imt.image_type_name in ('#[xpath('/mes:getItem/mes:ImageType/text()').text.replaceAll(",", "','")]')]]></db:dynamic-query>
                 </db:select>
                 <expression-transformer doc:name="to []" expression="
                 	first = payload[0];
@@ -123,9 +124,20 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
                 
             </when>
             <when expression="#[opName == 'getTypes']">
-                <db:select config-ref="MySQL_Configuration" doc:name="select types">
-                    <db:parameterized-query><![CDATA[select * from item_type]]></db:parameterized-query>
+                <db:select config-ref="MySQL_Configuration" doc:name="select types" target="flowVars.types">
+                    <db:parameterized-query><![CDATA[select item_type_name from item_type
+order by item_type_name
+limit #[Integer.valueOf(xpath('/mes:getTypes/mes:PageInfo/pageIndex/text()').text)],
+#[Integer.valueOf(xpath('/mes:getTypes/mes:PageInfo/pageSize/text()').text)]]]></db:parameterized-query>
                 </db:select>
+                <expression-transformer doc:name="to []" expression="
+                	np = [ 'pageInfo' : [ 'index' : Integer.valueOf(xpath('/mes:getTypes/mes:PageInfo/pageIndex/text()').text), 'size' : types.size() ], 'items' : [] ];
+                	for (record :  types) {
+                		np.items.add(record.item_type_name);
+                	}
+                	np
+                " />
+                <data-mapper:transform config-ref="Map_To_XML" doc:name="Map To XML"/>
             </when>
             <when expression="#[opName == 'modifySKUStockCount']">
                 <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
@@ -134,6 +146,25 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
                 </db:update>
                 <parse-template location="modifySkuStockCountResponse.xml" doc:name="modifySkuStockCountResponse.xml"/>
                 
+            </when>
+            <when expression="#[opName == 'getBrands']">
+                <db:select config-ref="MySQL_Configuration" doc:name="select brands" target="flowVars.brands">
+                    <db:parameterized-query><![CDATA[select distinct item_brand 
+from item 
+where item_brand != ''
+order by item_brand
+limit #[Integer.valueOf(xpath('/mes:getBrands/mes:PageInfo/pageIndex/text()').text)],
+#[Integer.valueOf(xpath('/mes:getBrands/mes:PageInfo/pageSize/text()').text)]]]></db:parameterized-query>
+                </db:select>
+                <expression-transformer doc:name="to []" expression="
+                	np = [ 'pageInfo' : [ 'index' : Integer.valueOf(xpath('/mes:getBrands/mes:PageInfo/pageIndex/text()').text), 'size' : brands.size() ], 'items' : [] ];
+                	for (record :  brands) {
+                		np.items.add(record.item_brand);
+                	}
+                	np
+                " />
+                <data-mapper:transform config-ref="Map_To_XML3" doc:name="Map to Xml&lt;getBrandsResponse&gt;">
+                </data-mapper:transform>
             </when>
             <otherwise>
                 <scripting:component doc:name="Exception">

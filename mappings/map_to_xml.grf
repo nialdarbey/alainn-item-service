@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><Graph author="nialdarbey" created="Fri May 02 16:14:25 ART 2014" description="Map To XML" guiVersion="3.4.3.P" id="1399063159755" licenseCode="Unlicensed" licenseType="Unknown" modified="Fri May 02 16:14:25 ART 2014" modifiedBy="nialdarbey" name="Map_To_XML" preview-file="${Project_Home}/src/test/resources/items-structured.groovy" revision="1.0" showComponentDetails="false">
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="nialdarbey" created="Fri May 02 16:14:25 ART 2014" description="Map To XML" guiVersion="3.4.3.P" id="1399063159755" licenseCode="Unlicensed" licenseType="Unknown" modified="Fri May 02 16:14:25 ART 2014" modifiedBy="nialdarbey" name="Map_To_XML" preview-file="${Project_Home}/src/test/resources/items-structured.groovy" revision="1.0" showComponentDetails="false">
 <Global>
 <Metadata __index="0" __referenceCounter="1" __sourcePath="{http://www.alainn.com/SOA/message/1.0=ns0}/ns0:getItemsResponse" _dataStructure="OBJECT" _id="__id" _type="Output" id="2a07021c-5241-470a-bb78-02d31d994835">
 <Record fieldDelimiter="," name="getItemsResponse" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
@@ -62,7 +62,7 @@
 <Phase number="0">
 <Node enabled="enabled" fileURL="dict:inputPayload" guiName="Map&lt;k,v&gt; READER" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Context outPort="0" sequenceField="__id" xpath=".">
+<Context outPort="2" sequenceField="__id" xpath=".">
   <Mapping cloverField="index" trim="true" xpath="pageInfo/index"/>
   <Mapping cloverField="size" trim="true" xpath="pageInfo/size"/>
   <Context generatedKey="__parent_id" outPort="1" parentKey="__id" sequenceField="__id" xpath="items">
@@ -72,7 +72,7 @@
     <Mapping cloverField="item_description" trim="true" xpath="item_x005fdescription"/>
     <Mapping cloverField="item_brand" trim="true" xpath="item_x005fbrand"/>
     <Mapping cloverField="item_type_name" trim="true" xpath="item_x005ftype_x005fname"/>
-    <Context generatedKey="__parent_id" outPort="2" parentKey="__id" sequenceField="__id" xpath="images">
+    <Context generatedKey="__parent_id" outPort="0" parentKey="__id" sequenceField="__id" xpath="images">
       <Mapping cloverField="url" trim="true" xpath="url"/>
       <Mapping cloverField="image_type_name" trim="true" xpath="image_x005ftype_x005fname"/>
     </Context>
@@ -84,10 +84,10 @@
 </Node>
 <Node cacheInMemory="true" charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="XML WRITER" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER" xmlSchemaURL="./src/main/resources/service/SOA-Message-1.0.xsd">
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<clover:element clover:name="ns0:getItemsResponse" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" xmlns:ns0="http://www.alainn.com/SOA/message/1.0" clover:inPort="0">
+<clover:element clover:name="ns0:getItemsResponse" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" xmlns:ns0="http://www.alainn.com/SOA/message/1.0" clover:inPort="2">
   <clover:element clover:name="ns0:PageInfo">
-    <pageIndex>$0.pageIndex</pageIndex>
-    <pageSize>$0.pageSize</pageSize>
+    <pageIndex>$2.pageIndex</pageIndex>
+    <pageSize>$2.pageSize</pageSize>
   </clover:element>
   <clover:element clover:name="ns1:Item" xmlns:ns1="http://www.alainn.com/SOA/model/1.0" clover:inPort="1" clover:key="__parent_id" clover:parentKey="__id">
     <id>$1.id</id>
@@ -96,7 +96,7 @@
     <summary>$1.summary</summary>
     <brand>$1.brand</brand>
     <images>
-      <image type="$2.type" clover:inPort="2" clover:key="__parent_id" clover:parentKey="__id">$2.text</image>
+      <image type="$0.type" clover:inPort="0" clover:key="__parent_id" clover:parentKey="__id">$0.text</image>
     </images>
     <description>$1.description</description>
   </clover:element>
@@ -134,11 +134,11 @@ output.__id = input.__id;
 output.pageIndex = input.index;
 output.pageSize = input.size;]]></attr>
 </Node>
-<Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="4db5766c-79bd-49b9-b098-fa0f0213c241" outPort="Port 0 (out)" toNode="FOREACH_MAP_METADATA_NS0_GET_ITEMS_RESPONSE:0"/>
+<Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="2f291730-c917-45bc-9bf6-0c84d342e1ae" outPort="Port 0 (out)" toNode="FOREACH_IMAGES_IMAGE:0"/>
 <Edge debugMode="true" fromNode="BEAN_READER0:1" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="72048ce6-5eeb-4fbe-8b5c-90e117b19145" outPort="Port 1 (out)" toNode="FOREACH_ITEMS_NS1_ITEM:0"/>
-<Edge debugMode="true" fromNode="BEAN_READER0:2" guiBendpoints="" id="Edge4" inPort="Port 0 (in)" metadata="2f291730-c917-45bc-9bf6-0c84d342e1ae" outPort="Port 2 (out)" toNode="FOREACH_IMAGES_IMAGE:0"/>
-<Edge debugMode="true" fromNode="FOREACH_IMAGES_IMAGE:0" guiBendpoints="" id="Edge5" inPort="Port 2 (in)" metadata="1cedaad7-4ae2-451e-9416-3d3437b9d135" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:2"/>
+<Edge debugMode="true" fromNode="BEAN_READER0:2" guiBendpoints="" id="Edge4" inPort="Port 0 (in)" metadata="4db5766c-79bd-49b9-b098-fa0f0213c241" outPort="Port 2 (out)" toNode="FOREACH_MAP_METADATA_NS0_GET_ITEMS_RESPONSE:0"/>
+<Edge debugMode="true" fromNode="FOREACH_IMAGES_IMAGE:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="1cedaad7-4ae2-451e-9416-3d3437b9d135" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
 <Edge debugMode="true" fromNode="FOREACH_ITEMS_NS1_ITEM:0" guiBendpoints="" id="Edge3" inPort="Port 1 (in)" metadata="a23220f6-1dd5-4e45-bacc-a45bc5d8ce6b" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:1"/>
-<Edge debugMode="true" fromNode="FOREACH_MAP_METADATA_NS0_GET_ITEMS_RESPONSE:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="2a07021c-5241-470a-bb78-02d31d994835" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+<Edge debugMode="true" fromNode="FOREACH_MAP_METADATA_NS0_GET_ITEMS_RESPONSE:0" guiBendpoints="" id="Edge5" inPort="Port 2 (in)" metadata="2a07021c-5241-470a-bb78-02d31d994835" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:2"/>
 </Phase>
 </Graph>
